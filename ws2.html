@@ -1,0 +1,21 @@
+<script>
+    const ws = new WebSocket('ws://localhost:40510/page');
+    
+    ws.onopen = function (event) {
+        console.log(event)
+        console.log('websocket is connected')
+    }
+
+    ws.onclose = function (event) {
+        ws.send('nada')
+        console.log('websocket is disconnected')
+    }
+
+    ws.onerror = error => {
+        console.log(`WebSocket error: ${error}`)
+    }
+
+    ws.onmessage = event => {
+        console.log(event.data);
+    }
+</script>

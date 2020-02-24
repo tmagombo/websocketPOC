@@ -1,0 +1,23 @@
+<script>
+    const ws = new WebSocket('ws://localhost:40510');
+    const userAgent =  window.navigator.userAgent
+    
+    ws.onopen = function (event) {
+        console.log('websocket is connected')
+        ws.send(JSON.stringify({pageid: 123, userid: userAgent, message: "newuser"}))
+    }
+
+    ws.onclose = function (event) {
+        // console.log(event)
+        console.log('websocket is disconnected')
+        ws.send(JSON.stringify({pageid: 123, userid: userAgent, message: "closeuser"}))
+    }
+
+    ws.onerror = error => {
+        console.log(`WebSocket error: ${error}`)
+    }
+
+    ws.onmessage = event => {
+        console.log(JSON.parse(event.data))
+    }
+</script>
